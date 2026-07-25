@@ -46,6 +46,6 @@ export class MouseManager {
   private getTarget(handler: MouseHandler): Document|HTMLElement {
     if (handler.target === 'document') return activeDocument;
 
-    return handler.target!;
+    return handler.target;
   }
 }
