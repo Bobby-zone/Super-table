@@ -1,7 +1,8 @@
 import {App, Component} from 'obsidian';
 
-import {TableCell} from '../../models/TableCell';
-import {MarkdownRendererWrapper} from '../../renderer/MarkdownRenderer';
+import {MarkdownRendererWrapper} from '../markdown/MarkdownRenderer';
+import {TableCell} from '../models/TableCell';
+import {MarkdownPreprocessor} from '../utils/MarkdownPreprocessor';
 
 export class CellRenderer {
   constructor(
@@ -13,7 +14,10 @@ export class CellRenderer {
       el: HTMLElement,
       cell: TableCell,
       ): Promise<void> {
-    const markdown = cell.text.replace(/\n\s*\n/g, '\n&nbsp;\n\n');
+    // preserve blank line
+    const markdown = MarkdownPreprocessor.processMarkdown(cell.text);
+
+    // render markdown
     await MarkdownRendererWrapper.render(
         this.app, el, markdown, this.component);
   }

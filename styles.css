@@ -10,17 +10,23 @@
 td {
     position: relative;
     padding: 0 !important;
+    margin: 0 !important;
     height: auto !important;
 }
-td p {
-    margin: 0.4em 0.8em !important;   /* top/bottom left/right */
+td:empty::before {
+    content: "\00a0";
+    display: block;
+    padding: 0.4em 0.8em !important; /* top/bottom left/right */
 }
-
+td p, td ul, td ol, textarea {
+    padding: 0.4em 0.8em !important; /* top/bottom left/right */
+    margin: 0 !important;
+    overflow-wrap: anywhere;
+}
 td li {
     line-height: 1.5 !important;
-    margin-bottom: 0.7em !important;
+    padding-bottom: 0.7em !important;
 }
-
 .block-language-table {
     display: block;
     overflow-x: auto;
@@ -62,7 +68,7 @@ td li {
     border-collapse: collapse;
 }
 
-.spread td{
+.spread td, .spread .table-cell-editor{
     white-space: nowrap;
 }
 /*  */
@@ -78,24 +84,14 @@ td li {
 /*  */
 
 /* =================== editor style =================== */
-td.editing {
-    width: var(--table-cell-width);
-}
 td.editing > *:not(.table-cell-editor){
     display: none;
 }
-
 .table-cell-editor {
     display: block;
-
-    resize: none;
+    box-sizing: border-box !important;
     overflow: hidden;
 
-    width: 100%;
-    max-width: 100%;
-    height: var(--table-cell-height);
-
-    box-sizing: border-box !important;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
@@ -104,9 +100,11 @@ td.editing > *:not(.table-cell-editor){
     font: inherit;
     color: inherit;
     line-height: inherit;
-    padding: 0.4em 0.8em !important;
-    margin: 0;
-    white-space: normal;
+
+    resize: horizontal;
+
+    width: var(--measure-width);
+    height: var(--measure-height);
 }
 
 

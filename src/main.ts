@@ -1,15 +1,20 @@
 import {Notice, Plugin} from 'obsidian';
 
 import {InsertTableCommand} from './commands/InsertTableCommand';
-import {MarkdownUpdater} from './editor/MarkdownUpdater';
 import {TableView} from './editor/Tableview';
-import {TableBlockParser} from './parser/TableBlockParser';
+import {MouseManager} from './manager/MouseManager';
+import {MarkdownUpdater} from './markdown/MarkdownUpdater';
+import {TableBlockParser} from './markdown/TableBlockParser';
 import {InsertTableModal} from './ui/InsertTable';
 
 export default class TablePlugin extends Plugin {
   private markdownUpdater!: MarkdownUpdater;
+  private mouseManager!: MouseManager;
 
   async onload() {
+    this.mouseManager = new MouseManager();
+    this.markdownUpdater = new MarkdownUpdater(this.app);
+
     // find codeblock table
     this.registerMarkdownCodeBlockProcessor(
         'table', async (source, el, context) => {
@@ -17,9 +22,10 @@ export default class TablePlugin extends Plugin {
             const model = TableBlockParser.parse(source);
 
             const view = new TableView(
-                this.app, this, context, model, async (newSource) => {
-                  const markdownUpdater = new MarkdownUpdater(this.app);
-                  await markdownUpdater.updateCodeBlock(context, el, newSource);
+                this.app, this, context, model, this.mouseManager,
+                async (newSource) => {
+                  await this.markdownUpdater.updateCodeBlock(
+                      context, el, newSource);
                 });
             await view.render(el);
           } catch (err) {

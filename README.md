@@ -1,92 +1,77 @@
-# Obsidian Sample Plugin
+# Super Table
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+A structured table editor for Obsidian that provides spreadsheet-like editing capabilities while keeping table data stored within Markdown notes.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+## Feature
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open modal (simple)" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and outputs a Notice on click.
-- Registers a global interval which logs 'setInterval' to the console.
-
-## First time developing plugins?
-
-Quick starting guide for new plugin devs:
-
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `src/main.ts` to `main.js`.
-- Make changes to `src/main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
-
-## Releasing new releases
-
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
-
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
-
-## Adding your plugin to the community plugin list
-
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+- Spreadsheet-style table editing
+  - Edit tables through a dedicated editor view
+  - Modify cell content
+  - Add and manage table data through the editor
+- Markdown support in cells
+  - Render Markdown content inside table cells
+  - Support Obsidian internal links (`[[Note]]`)
+  - Support embedded files and images (`![[image.png]]`)
+- Obsidian integration
+  - Store tabel data directly inside Markdown files
+  - Use a custom `table` code block format
+  - Keep tabel content portable with you notes
+- Custom table rendering
+  - Render structured table data inside Obsidian notes
+  - Support customizable table appearance through CSS
 
 ## How to use
 
-- Clone this repo.
-- Make sure your NodeJS is at least v18 (`node --version`).
-- `npm i` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+### Creating a Table
 
-## Manually installing the plugin
+Table are defined using a custom `table` code block:
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
-
-## Improve code quality with eslint
-
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code.
-- This project already has eslint preconfigured, you can invoke a check by running`npm run lint`
-- Together with a custom eslint [plugin](https://github.com/obsidianmd/eslint-plugin) for Obsidan specific code guidelines.
-- A GitHub action is preconfigured to automatically lint every commit on all branches.
-
-## Funding URL
-
-You can include funding URLs where people who use your plugin can financially support it.
-
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
-
-```json
+```table
 {
-	"fundingUrl": "https://buymeacoffee.com"
+  "columns": [
+    "Name",
+    "Description"
+  ],
+  "rows": [
+    [
+      "Obsidian",
+      "A knowledge management application"
+    ]
+  ]
 }
 ```
 
-If you have multiple URLs, you can also do:
+The plugin renders the block as an interactive table.
+You can create new table using command `Super table: create new table`
 
-```json
-{
-	"fundingUrl": {
-		"Buy Me a Coffee": "https://buymeacoffee.com",
-		"GitHub Sponsor": "https://github.com/sponsors",
-		"Patreon": "https://www.patreon.com/"
-	}
-}
-```
+## Installation
 
-## API Documentation
+<!-- ### Obsidian Community Plugin -->
 
-See https://docs.obsidian.md
+<!-- This plugin is available in the official Obsidian community plugin directory. Install it from Setting > Community plugins > Browse and search for "Super table".
+
+Community plugin page: . -->
+
+## Road map
+
+- [ ] Row and column resizing
+- [ ] Drag and drop row/column reordering
+
+---
+
+## Contributing
+
+Bug reports and feature requests are welcome.
+
+When reporting an issue, include:
+
+- Obsidian version
+- Plugin version
+- Steps to reproduce the issue
+- Example table data if applicable
+
+---
+
+## License
+
+MIT License

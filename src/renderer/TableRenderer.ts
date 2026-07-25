@@ -1,7 +1,6 @@
-import {TableModel} from '../../models/TableModel';
-import {CellEditor} from '../CellEditor';
-
-import {CellRenderer} from './CellRenderer';
+import {CellEditor} from '../editor/CellEditor';
+import {TableModel} from '../models/TableModel';
+import {CellRenderer} from '../renderer/CellRenderer';
 
 export class TableRenderer {
   constructor(

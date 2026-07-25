@@ -1,11 +1,11 @@
 {
-	"id": "advance-table",
-	"name": "advance table Plugin",
-	"version": "1.0.0",
+	"id": "super-table",
+	"name": "Super table",
+	"version": "0.1.1",
 	"minAppVersion": "1.0.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
+	"description": "A spreadsheet-like table editor for Obsidian that supports rich Markdown content, Wikilinks, images, merged cells, and advanced table customization.",
+	"author": "Bobby",
+	"authorUrl": "https://github.com/Bobby-zone",
 	"fundingUrl": "https://obsidian.md/pricing",
 	"isDesktopOnly": false
 }
