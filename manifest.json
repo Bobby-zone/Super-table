@@ -1,7 +1,7 @@
 {
 	"id": "super-table",
 	"name": "Super table",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"minAppVersion": "1.0.0",
 	"description": "A spreadsheet-like table editor for Obsidian that supports rich Markdown content, Wikilinks, images, merged cells, and advanced table customization.",
 	"author": "Bobby",
