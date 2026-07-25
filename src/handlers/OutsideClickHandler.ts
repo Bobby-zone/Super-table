@@ -3,7 +3,7 @@ import {CellEditor} from '../editor/CellEditor';
 import {MouseHandler} from './MouseHandler';
 
 export class OutsideClickHandler implements MouseHandler {
-  target = 'document' as const;
+  target = activeDocument;
 
   constructor(
       private editor: CellEditor,

@@ -1,4 +1,6 @@
-import {OutsideClickHandler} from '../handlers/OutsideClinkHandler';
+import {EditorKeyboardHandler} from '../handlers/EditorKeyboardHandler'
+import {OutsideClickHandler} from '../handlers/OutsideClickHandler';
+import {KeyboardManager} from '../manager/KeyboardManager';
 import {MouseManager} from '../manager/MouseManager';
 import {TableCell} from '../models/TableCell';
 import {CellRenderer} from '../renderer/CellRenderer';
@@ -8,13 +10,16 @@ export class CellEditor {
     cell: TableCell; el: HTMLTableCellElement; textarea: HTMLTextAreaElement;
   };
   private outsideClickHandler: OutsideClickHandler;
+  private editorKeyboardHandler: EditorKeyboardHandler;
 
   constructor(
       private renderer: CellRenderer,
       private mouseManager: MouseManager,
+      private keyboardManager: KeyboardManager,
       private onChange: () => Promise<void>,
   ) {
     this.outsideClickHandler = new OutsideClickHandler(this);
+    this.editorKeyboardHandler = new EditorKeyboardHandler(this);
   }
 
   async beginEdit(cell: TableCell, el: HTMLTableCellElement) {
@@ -39,8 +44,9 @@ export class CellEditor {
       this.resizeTextarea(textarea);
     });  // resize while typing
 
-    // if click outside table finishEdit
+    // add event
     this.mouseManager.register(this.outsideClickHandler);
+    this.keyboardManager.register(this.editorKeyboardHandler);
   };
 
   async finishEdit() {
@@ -75,5 +81,20 @@ export class CellEditor {
 
   getEditingCell(): HTMLTableCellElement|undefined {
     return this.editing?.el;
+  }
+
+  insertText(text: string): void {
+    if (!this.editing) return;
+
+    const textarea = this.editing.textarea;
+
+    textarea.setRangeText(
+        text,
+        textarea.selectionStart,
+        textarea.selectionEnd,
+        'end',
+    );
+
+    this.resizeTextarea(textarea);
   }
 }

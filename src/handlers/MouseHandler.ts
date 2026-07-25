@@ -1,5 +1,5 @@
 export interface MouseHandler {
-  target: HTMLElement|'document';
+  target: HTMLElement|Document;
 
   onPointerDown?(event: PointerEvent): void;
   onPointerMove?(event: PointerEvent): void;

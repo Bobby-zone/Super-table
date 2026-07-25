@@ -26,7 +26,7 @@ export class MouseManager {
       handler: MouseHandler,
       add: boolean,
   ) {
-    const target = this.getTarget(handler);
+    const target = handler.target;
 
     for (const [method, event] of Object.entries(this.events)) {
       const callback = handler[method as keyof MouseHandler];
@@ -41,11 +41,5 @@ export class MouseManager {
         target.removeEventListener(event, callback as EventListener);
       }
     }
-  }
-
-  private getTarget(handler: MouseHandler): Document|HTMLElement {
-    if (handler.target === 'document') return activeDocument;
-
-    return handler.target;
   }
 }

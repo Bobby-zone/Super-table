@@ -104,6 +104,7 @@ td.editing > *:not(.table-cell-editor){
     resize: horizontal;
 
     width: var(--measure-width);
+    min-width: var(--measure-width);
     height: var(--measure-height);
 }
 

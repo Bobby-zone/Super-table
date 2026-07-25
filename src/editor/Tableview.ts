@@ -1,5 +1,6 @@
 import {App, Component, MarkdownPostProcessorContext, MarkdownView} from 'obsidian';
 
+import {KeyboardManager} from '../manager/KeyboardManager';
 import {MouseManager} from '../manager/MouseManager';
 import {TableBlockSerializer} from '../markdown/TableBlockSerializer';
 import {TableModel} from '../models/TableModel';
@@ -19,11 +20,16 @@ export class TableView {
       private context: MarkdownPostProcessorContext,
       private model: TableModel,
       private mouseManager: MouseManager,
+      private keyboardManager: KeyboardManager,
       private onUpdate: (source: string) => Promise<void>,
   ) {
     this.cellRenderer = new CellRenderer(app, component);
-    this.cellEditor =
-        new CellEditor(this.cellRenderer, mouseManager, () => this.save());
+    this.cellEditor = new CellEditor(
+        this.cellRenderer,
+        mouseManager,
+        keyboardManager,
+        () => this.save(),
+    );
     this.tableRenderer = new TableRenderer(this.cellRenderer, this.cellEditor);
   }
 
